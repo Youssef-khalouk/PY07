@@ -33,8 +33,12 @@ class Deck:
     def get_deck_stats(self) -> dict:
         stats = {}
         stats["total_cards"] = len(self._cards)
-        stats["creatures"] = sum(1 for card in self._cards if isinstance(card, CreatureCard))
-        stats["spells"] = sum(1 for card in self._cards if isinstance(card, SpellCard))
-        stats["artifacts"] = sum(1 for card in self._cards if isinstance(card, ArtifactCard))
-        stats["avg_cost"] = sum(card.cost for card in self._cards) / len(self._cards)
+        stats["creatures"] = sum(
+            1 for card in self._cards if isinstance(card, CreatureCard))
+        stats["spells"] = sum(
+            1 for card in self._cards if isinstance(card, SpellCard))
+        stats["artifacts"] = sum(
+            1 for card in self._cards if isinstance(card, ArtifactCard))
+        stats["avg_cost"] = sum(
+            card.cost for card in self._cards) / len(self._cards)
         return stats

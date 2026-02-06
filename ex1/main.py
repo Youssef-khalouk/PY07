@@ -14,8 +14,10 @@ class Players(Enum):
 
 def main():
     dragon = CreatureCard(Players.DRAGON.value, 5, "Legendary", 7, 5)
-    l_bolt = SpellCard(Players.L_BOLT.value, 3, "Legendary", "Deal 3 damage to target")
-    crystal = ArtifactCard(Players.CRYSTAL.value, 4, "Legendary", 5, "Permanent: +1 mana per turn")
+    l_bolt = SpellCard(
+        Players.L_BOLT.value, 3, "Legendary", "Deal 3 damage to target")
+    crystal = ArtifactCard(
+        Players.CRYSTAL.value, 4, "Legendary", 5, "+1 mana per turn")
 
     deck = Deck()
     deck.add_card(dragon)
