@@ -7,7 +7,10 @@ def main():
     card = EliteCard("Arcane Warrior", 7, "rar")
 
     print("EliteCard capabilities:")
-    print("- Card:", [method for method in dir(card) if method in ["play", "get_card_info", "is_playable"]])
+    print("- Card:", [
+        method for method in dir(card) if method in
+        ["play", "get_card_info", "is_playable"]
+    ])
     print("- Combatable:", ["attack", "defend", "get_combat_stats"])
     print("- Magical:", ["cast_spell", "channel_mana", "get_magic_stats"])
 

@@ -9,21 +9,20 @@ class EliteCard(Card, Combatable, Magical):
     def __init__(self, name: str, cost: int, rarity: str):
         Card.__init__(self, name, cost, rarity)
 
-        # Combat stats
         self.attack_power = 5
         self.defense = 3
         self.health = 10
 
-        # Magic stats
         self.mana = 4
 
     # -------- Card --------
     def play(self, game_state: dict) -> dict:
+        game_state["battlefield"] = game_state.get("battlefield", [])
+        game_state["battlefield"].append(self.name)
         return {
-            "card": self.name,
-            "status": "played",
-            "cost": self.cost,
-            "rarity": self.rarity
+            "card_played": self.name,
+            "mana_used": self.cost,
+            "effect": f"health: {self.health}"
         }
 
     # -------- Combatable --------
