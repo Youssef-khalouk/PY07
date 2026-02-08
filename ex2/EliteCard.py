@@ -8,10 +8,8 @@ class EliteCard(Card, Combatable, Magical):
 
     def __init__(self, name: str, cost: int, rarity: str):
         Card.__init__(self, name, cost, rarity)
-
-        self.attack_power = 5
-        self.defense = 3
-        self.health = 10
+        Combatable.__init__(self, name)
+        Magical.__init__(self, name)
 
         self.mana = 4
 
@@ -34,25 +32,6 @@ class EliteCard(Card, Combatable, Magical):
             "combat_type": "melee"
         }
 
-    def defend(self, incoming_damage: int) -> dict:
-        blocked = min(self.defense, incoming_damage)
-        taken = incoming_damage - blocked
-        self.health -= taken
-
-        return {
-            "defender": self.name,
-            "damage_taken": taken,
-            "damage_blocked": blocked,
-            "still_alive": self.health > 0
-        }
-
-    def get_combat_stats(self) -> dict:
-        return {
-            "attack": self.attack_power,
-            "defense": self.defense,
-            "health": self.health
-        }
-
     # -------- Magical --------
     def cast_spell(self, spell_name: str, targets: list) -> dict:
         mana_cost = random.randint(2, 4)
@@ -63,16 +42,4 @@ class EliteCard(Card, Combatable, Magical):
             "spell": spell_name,
             "targets": targets,
             "mana_used": mana_cost
-        }
-
-    def channel_mana(self, amount: int) -> dict:
-        self.mana += amount
-        return {
-            "channeled": amount,
-            "total_mana": self.mana
-        }
-
-    def get_magic_stats(self) -> dict:
-        return {
-            "mana": self.mana
         }
