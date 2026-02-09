@@ -18,20 +18,8 @@ from ex3.CardFactory import (
 
 
 class FantasyCardFactory(CardFactory):
-    """Factory class for creating fantasy-themed cards."""
-
     def create_creature(self, name_or_power: str | int | None = None) -> Card:
-        """Create a creature card based on the given name or power.
 
-        Args:
-            name_or_power (str | int | None): The identifier for the creature.
-
-        Returns:
-            Card: The created creature card.
-
-        Raises:
-            ValueError: If the creature type is unknown.
-        """
         key: str = str(name_or_power).upper().replace(" ", "_")
 
         if key in CreaturesStats.__members__:
@@ -48,17 +36,6 @@ class FantasyCardFactory(CardFactory):
         raise ValueError(f"Unknown creature: {name_or_power}")
 
     def create_spell(self, name_or_power: str | int | None = None) -> Card:
-        """Create a spell card based on the given name or power.
-
-        Args:
-            name_or_power (str | int | None): The identifier for the spell.
-
-        Returns:
-            Card: The created spell card.
-
-        Raises:
-            ValueError: If the spell type is unknown.
-        """
         key: str = str(name_or_power).upper().replace(" ", "_")
 
         if key in SpellsStats.__members__:
@@ -74,17 +51,6 @@ class FantasyCardFactory(CardFactory):
         raise ValueError(f"Unknown spell: {name_or_power}")
 
     def create_artifact(self, name_or_power: str | int | None = None) -> Card:
-        """Create an artifact card based on the given name or power.
-
-        Args:
-            name_or_power (str | int | None): The identifier for the artifact.
-
-        Returns:
-            Card: The created artifact card.
-
-        Raises:
-            ValueError: If the artifact type is unknown.
-        """
         key: str = str(name_or_power).upper().replace(" ", "_")
 
         if key in ArtifactStats.__members__:
@@ -101,11 +67,6 @@ class FantasyCardFactory(CardFactory):
         raise ValueError(f"Unknown artifact: {name_or_power}")
 
     def get_supported_types(self) -> dict:
-        """Retrieve all supported card types (Creatures, Spells, Artifacts).
-
-        Returns:
-            dict: A combined dictionary of all supported types.
-        """
         return (
             CreaturesType.get_values()
             | SpellsType.get_values()
@@ -113,14 +74,6 @@ class FantasyCardFactory(CardFactory):
         )
 
     def create_themed_deck(self, size: int) -> dict:
-        """Create a random themed deck.
-
-        Args:
-            size (int): The number of cards to include in the deck.
-
-        Returns:
-            dict: A Deck object containing the generated cards.
-        """
         new_deck: Deck = Deck()
         options = [
             (self.create_creature, CreaturesType),

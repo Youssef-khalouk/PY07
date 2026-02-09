@@ -1,47 +1,42 @@
-
-from ex0.CreatureCard import CreatureCard
-from ex1.ArtifactCard import ArtifactCard
-from ex1.SpellCard import SpellCard
+#!/usr/bin/env python3
+from ex0.Card import Card
 from ex1.Deck import Deck
-from enum import Enum
+from ex0.CreatureCard import CreatureCard
+from ex1.SpellCard import SpellCard
+from ex1.ArtifactCard import ArtifactCard
 
 
-class Players(Enum):
-    DRAGON = "Fire Dragon"
-    L_BOLT = "Lightning Bolt"
-    CRYSTAL = "Mana Crystal"
+def main() -> None:
+    try:
+        print("\n=== DataDeck Deck Builder ===\n")
 
+        my_deck: Deck = Deck()
+        lightning_bolt: SpellCard = SpellCard(
+            "Lightning Bolt", 3, "rare",
+            'Deal 3 damage to target')
+        mana_crystal: ArtifactCard = ArtifactCard(
+            "Mana Crystal", 2, "common", 5, "Permanent: +1 mana per turn"
+        )
+        fire_dragon: CreatureCard = CreatureCard(
+            "Fire Dragon", 5, "Legendary", 7, 5)
+        for card_to_add in (lightning_bolt, mana_crystal, fire_dragon):
+            my_deck.add_card(card=card_to_add)
+        my_deck.shuffle()
+        print("Building deck with different card types...")
+        print("Deck stats:", my_deck.get_deck_stats())
 
-def main():
-    dragon = CreatureCard(Players.DRAGON.value, 5, "Legendary", 7, 5)
-    l_bolt = SpellCard(
-        Players.L_BOLT.value, 3, "Legendary", "Deal 3 damage to target")
-    crystal = ArtifactCard(
-        Players.CRYSTAL.value, 4, "Legendary", 5, "+1 mana per turn")
-
-    deck = Deck()
-    deck.add_card(dragon)
-    deck.add_card(l_bolt)
-    deck.add_card(crystal)
-
-    print("\n=== DataDeck Deck Builder ===")
-    print("\nBuilding deck with different card types...")
-    print("Deck stats:", deck.get_deck_stats())
-
-    print("\nDrawing and playing cards:")
-    print("\nDrew: Lightning Bolt (Spell)")
-
-    game_state = {}
-    print("Play result:", l_bolt.play(game_state))
-
-    print("\nDrew: Mana Crystal (Artifact)")
-    print("Play result:", crystal.play(game_state))
-
-    print("\nDrew: Fire Dragon (Creature)")
-    print("Play result:", dragon.play(game_state))
-
-    print(
-        "\nPolymorphism in action: Same interface, different card behaviors!")
+        print("\nDrawing and playing cards:\n")
+        while len(my_deck.deck) > 0:
+            card: Card = my_deck.draw_card()
+            card_data: dict = card.get_card_info()
+            print(f"Drew: {card.name} ({card_data['type']})")
+            print("Play result:", card.play({}))
+            print()
+        print(
+            "Polymorphism in action: Same interface, different card behaviors!"
+            )
+    except Exception as e:
+        print(f"Something went wrong -> {e}")
 
 
 if __name__ == "__main__":

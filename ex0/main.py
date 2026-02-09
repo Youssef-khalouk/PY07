@@ -1,28 +1,24 @@
-
-from enum import Enum
+#!/usr/bin/env python3
 from ex0.CreatureCard import CreatureCard
 
 
-class Players(Enum):
-    DRAGON = "Fire Dragon"
-    GOBLIN = "Goblin Warrior"
+def main() -> None:
+    print("\n=== DataDeck Card Foundation ===\n")
+    print("Testing Abstract Base Class Design:\n")
 
-
-if __name__ == "__main__":
-
-    dragon = CreatureCard(Players.DRAGON.value, 5, "Legendary", 7, 5)
+    dragon = CreatureCard("Fire Dragon", 5, "Legendary", 7, 5)
     print("CreatureCard Info:")
     print(dragon.get_card_info())
 
     print("\nPlaying Fire Dragon with 6 mana available:")
 
-    game_state = {"mana": 6}
+    game_state = {}
 
     print("Playable:", dragon.is_playable(6))
     print("Play result:", dragon.play(game_state))
 
     print("\nFire Dragon attacks Goblin Warrior:")
-    goblin = CreatureCard(Players.GOBLIN.value, 5, 'Legendary', 7, 5)
+    goblin = CreatureCard("Goblin Warrior", 5, 'Legendary', 7, 5)
     print(f'Attack result: {dragon.attack_target(goblin)}')
 
     available_mana = 3
@@ -30,3 +26,7 @@ if __name__ == "__main__":
     print(f"Playable: {dragon.is_playable(available_mana)}")
 
     print('\nAbstract pattern successfully demonstrated!')
+
+
+if __name__ == "__main__":
+    main()
