@@ -1,50 +1,39 @@
-import random
 from ex0.Card import Card
-from ex0.CreatureCard import CreatureCard
-from ex1.SpellCard import SpellCard
-from ex1.ArtifactCard import ArtifactCard
+from typing import List
+import random
 
 
 class Deck:
-    def __init__(self) -> None:
-        self.deck: list[Card] = []
+    def __init__(self):
+        self.cards: List[Card] = []
 
     def add_card(self, card: Card) -> None:
-
-        self.deck.append(card)
+        self.cards.append(card)
 
     def remove_card(self, card_name: str) -> bool:
-
-        for card in self.deck:
+        for card in self.cards:
             if card.name == card_name:
-                self.deck.remove(card)
+                self.cards.remove(card)
                 return True
         return False
 
     def shuffle(self) -> None:
-        if len(self.deck) > 0:
-            random.shuffle(self.deck)
+        random.shuffle(self.cards)
 
     def draw_card(self) -> Card:
-
-        if len(self.deck) > 0:
-            card_to_draw: Card = self.deck.pop()
-            return card_to_draw
-        return None
+        return self.cards.pop(0)
 
     def get_deck_stats(self) -> dict:
-
-        avg = sum(c.cost for c in self.deck) / (len(self.deck) or 1)
+        creatures = [card for card in self.cards if card.type == "Creature"]
+        spells = [card for card in self.cards if card.type == "Spell"]
+        artifacts = [card for card in self.cards if card.type == "Artifact"]
+        cost = 0
+        for card in self.cards:
+            cost += card.cost
         return {
-            "total_cards": len(self.deck),
-            "creatures": sum(1 for card in self.deck if isinstance(
-                card, CreatureCard)),
-            "spells": sum(1 for card in self.deck if isinstance(
-                card, SpellCard)),
-            "artifacts": sum(1 for card in self.deck if isinstance(
-                card, ArtifactCard)),
-            "avg_cost": avg
+            'total_cards': len(self.cards),
+            'creatures': len(creatures),
+            'spells': len(spells),
+            'artifacts': len(artifacts),
+            'avg_cost': round(cost / len(self.cards), 1)
         }
-
-    def str_list(self) -> list[str]:
-        return [f"{card.name} ({card.cost})" for card in self.deck]
