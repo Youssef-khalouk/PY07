@@ -1,8 +1,13 @@
 from ex3 import GameEngine, FantasyCardFactory, AggressiveStrategy
 
 
-if __name__ == "__main__":
-    print("=== DataDeck Game Engine ===")
+def main() -> None:
+    """
+    Demonstrates the GameEngine using a FantasyCardFactory
+    and AggressiveStrategy to simulate a game turn.
+    """
+
+    print("\n=== DataDeck Game Engine ===")
 
     engine = GameEngine()
     print("\nConfiguring Fantasy Card Game...")
@@ -16,7 +21,11 @@ if __name__ == "__main__":
     print("\nSimulating aggressive turn...")
     print("Hand:", [f"{c.name} ({c.cost})" for c in engine.hand])
 
-    turn = engine.simulate_turn()
+    try:
+        turn = engine.simulate_turn()
+    except Exception as e:
+        print("Error:", e)
+        return
     print("Turn execution:")
     print(f"Strategy: {turn['strategy']}")
     print(f"Actions: {turn['actions']}")
@@ -25,3 +34,7 @@ if __name__ == "__main__":
 
     print()
     print("Abstract Factory + Strategy Pattern: Maximum flexibility achieved!")
+
+
+if __name__ == "__main__":
+    main()

@@ -3,4 +3,8 @@ from ex3.AggressiveStrategy import AggressiveStrategy
 from ex3.GameEngine import GameEngine
 
 
-__all__ = ['GameEngine', 'FantasyCardFactory', 'AggressiveStrategy']
+__all__ = [
+    'GameEngine',
+    'FantasyCardFactory',
+    'AggressiveStrategy'
+]

@@ -2,10 +2,15 @@ from ex4.TournamentPlatform import TournamentPlatform
 from ex4.TournamentCard import TournamentCard
 
 
-if __name__ == '__main__':
-    print("=== DataDeck Tournament Platform ===")
-    platform = TournamentPlatform()
+def main() -> None:
+    """
+    Demonstrates registering TournamentCards, running matches,
+    and viewing leaderboard and platform reports.
+    """
 
+    print("\n=== DataDeck Tournament Platform ===")
+
+    platform = TournamentPlatform()
     print("\nRegistering Tournament Cards...")
     dragon = TournamentCard("Dragon", 5, "Legend", a=7, h=5, br=1200)
     wizard = TournamentCard("Wizard", 4, "Epic", a=5, h=6, br=1150)
@@ -36,3 +41,7 @@ if __name__ == '__main__':
 
     print("\n=== Tournament Platform Successfully Deployed! ===")
     print('All abstract patterns working together harmoniously!')
+
+
+if __name__ == '__main__':
+    main()

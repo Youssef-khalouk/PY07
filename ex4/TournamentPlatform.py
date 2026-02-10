@@ -3,6 +3,11 @@ import random
 
 
 class TournamentPlatform():
+    """
+    Manages tournament cards, matches, and leaderboards,
+    tracking ratings and match outcomes.
+    """
+
     def __init__(self):
         self._cards: dict[str, TournamentCard] = {}
         self._matches_played = 0

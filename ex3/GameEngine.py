@@ -1,10 +1,16 @@
 from ex3.CardFactory import CardFactory
 from ex3.GameStrategy import GameStrategy
+from ex0.Card import Card
 
 
 class GameEngine():
+    """
+    Simulates game turns using a card factory and strategy,
+    tracking battlefield state, damage, and created cards.
+    """
+
     def __init__(self):
-        self.hand: list = []
+        self.hand: list[Card] = []
         self.battlefield: list = []
         self.turns_simulated = 0
         self.total_damage = 0
@@ -27,7 +33,9 @@ class GameEngine():
         return result
 
     def get_engine_status(self) -> dict:
-        strategy = self.strategy.get_strategy_name() if self.strategy else None
+        strategy = None
+        if self.strategy:
+            strategy = self.strategy.get_strategy_name()
         return {
             'turns_simulated': self.turns_simulated,
             'strategy_used': strategy,

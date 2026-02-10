@@ -7,6 +7,10 @@ import random
 
 
 class FantasyCardFactory(CardFactory):
+    """
+    Concrete factory to create creatures, spells, artifacts,
+    and themed decks with random or specified attributes.
+    """
     def __init__(self):
         self._creatures = [
             ("Fire Dragon", 5, "Legendary", 7, 5),
@@ -26,10 +30,9 @@ class FantasyCardFactory(CardFactory):
             for name, cost, rarity, attack, health in self._creatures:
                 if name == name_or_power:
                     return CreatureCard(name, cost, rarity, attack, health)
-        if isinstance(name_or_power, int):
-            name, cost, rarity, attack, health = random.choice(self._creatures)
-            return CreatureCard(name, cost, rarity, name_or_power, health)
         name, cost, rarity, attack, health = random.choice(self._creatures)
+        if isinstance(name_or_power, int):
+            return CreatureCard(name, cost, rarity, name_or_power, health)
         return CreatureCard(name, cost, rarity, attack, health)
 
     def create_spell(self, name_or_power: str | int | None = None) -> Card:
@@ -45,10 +48,9 @@ class FantasyCardFactory(CardFactory):
             for name, cost, rarity, dur, eff in self._artifacts:
                 if name == name_or_power:
                     return ArtifactCard(name, cost, rarity, dur, eff)
-        if isinstance(name_or_power, int):
-            name, cost, rarity, _, eff = random.choice(self._artifacts)
-            return ArtifactCard(name, cost, rarity, name_or_power, eff)
         name, cost, rarity, dur, eff = random.choice(self._artifacts)
+        if isinstance(name_or_power, int):
+            return ArtifactCard(name, cost, rarity, name_or_power, eff)
         return ArtifactCard(name, cost, rarity, dur, eff)
 
     def create_themed_deck(self, size: int) -> dict:

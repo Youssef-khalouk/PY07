@@ -3,11 +3,15 @@ from ex1 import ArtifactCard, SpellCard
 from ex1 import Deck
 
 
-if __name__ == "__main__":
-    effect = "+1 mana per turn"
+def main() -> None:
+    """
+    Demonstrates building, shuffling, drawing,
+    and playing various card types in a Deck.
+    """
     deck = Deck()
     deck.add_card(CreatureCard("Fire Dragon", 5, "Legendary", 5, 10))
-    deck.add_card(ArtifactCard("Mana Crystal", 2, "Common", 4, effect))
+    deck.add_card(ArtifactCard(
+        "Mana Crystal", 2, "Common", 4, "+1 mana per turn"))
     deck.add_card(SpellCard("Lightning Bolt", 3, "Usual", "damage"))
     deck.shuffle()
     print("=== DataDeck Deck Builder ===")
@@ -33,3 +37,7 @@ if __name__ == "__main__":
 
     print("\nPolymorphism in action:", end=" ")
     print("Same interface, different card behaviors!")
+
+
+if __name__ == "__main__":
+    main()

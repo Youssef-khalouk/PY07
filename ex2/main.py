@@ -1,8 +1,13 @@
 from ex2 import EliteCard
 
 
-if __name__ == "__main__":
-    print("=== DataDeck Ability System ===")
+def main() -> None:
+    """
+    Demonstrates EliteCard’s combined card, combat,
+    and magicalabilities in action.
+    """
+
+    print("\n=== DataDeck Ability System ===")
 
     print("\nEliteCard capabilities:")
     print("- Card: ['play', 'get_card_info', 'is_playable']")
@@ -21,3 +26,7 @@ if __name__ == "__main__":
     print(f"Mana channel: {elitecard.channel_mana(3)}")
 
     print("\nMultiple interface implementation successful!")
+
+
+if __name__ == "__main__":
+    main()

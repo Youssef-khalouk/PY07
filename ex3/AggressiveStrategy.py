@@ -2,6 +2,10 @@ from ex3.GameStrategy import GameStrategy
 
 
 class AggressiveStrategy(GameStrategy):
+    """
+    Implements an aggressive game strategy that prioritizes
+    playing the first card and attacking enemies first.
+    """
     def execute_turn(self, hand: list, battlefield: list) -> dict:
         if not hand:
             return {
@@ -15,15 +19,14 @@ class AggressiveStrategy(GameStrategy):
         play_result = to_play.play({})
         cards_played = [to_play.name]
         mana_used = play_result.get('mana_used', 0)
-        if to_play.type == 'Creature':
+        if to_play.type.name == 'Creature':
             battlefield.append(to_play)
         targets = self.prioritize_targets(['Enemy'])
         damage = 0
-        if battlefield:
+        if battlefield:  # if there is somone in battlefield atack them
             for c in battlefield:
-                attack = getattr(c, "attack", None)
-                if isinstance(attack, int):
-                    damage += attack
+                if hasattr(c, "attack_power"):
+                    damage += c.attack_power
         return {
             "strategy": self.get_strategy_name(),
             "actions": {

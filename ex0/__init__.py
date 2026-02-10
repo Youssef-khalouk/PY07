@@ -1,3 +1,6 @@
-from ex0.CreatureCard import CreatureCard
+from ex0.CreatureCard import CreatureCard, CardType
 
-__all__ = ['CreatureCard']
+__all__ = [
+    'CreatureCard',
+    'CardType'
+]

@@ -1,19 +1,22 @@
-from ex0.Card import Card
+from ex0.Card import Card, CardType
 from ex2.Combatable import Combatable
 from ex4.Rankable import Rankable
 
 
 class TournamentCard(Card, Combatable, Rankable):
+    """
+    Represents a tournament card combining card, combat,
+    and ranking features for gameplay and stats tracking.
+    """
+
     def __init__(self, n: str, c: int, r: str, a: int, h: int, br: int = 1200):
-        super().__init__(n, c, r)
-        self.attack_power = a
-        self.health = h
-        self._wins = 0
-        self._losses = 0
-        self._rating = br
+        Card.__init__(self, n, c, r)
+        Combatable.__init__(self, n, a, h)
+        Rankable.__init__(self, br)
+        self.type = CardType["Tournament_Card"]
 
     def play(self, game_state: dict) -> dict:
-        return {
+        return game_state | {
             "card_played": self.name,
             "mana_used": self.cost,
             "effect": "Tournament card enters the battlefield"
@@ -28,15 +31,11 @@ class TournamentCard(Card, Combatable, Rankable):
         }
 
     def defend(self, incoming_damage: int) -> dict:
+        result = super().defend(incoming_damage)
         blocked = min(self.attack_power, incoming_damage)
-        taken = incoming_damage - blocked
-        self.health -= taken
-        return {
-            "defender": self.name,
-            "damage_taken": taken,
-            "damage_blocked": blocked,
-            "still_alive": self.health > 0
-        }
+        result["damage_taken"] = incoming_damage - blocked
+        result["damage_blocked"] = blocked
+        return result
 
     def calculate_rating(self) -> int:
         return self._rating
@@ -49,26 +48,3 @@ class TournamentCard(Card, Combatable, Rankable):
             "record": f'{info["wins"]}-{info["losses"]}',
             "combat": self.get_combat_stats()
         }
-
-    def get_combat_stats(self) -> dict:
-        return {
-            "attack": self.attack_power,
-            "health": self.health
-        }
-
-    def get_rank_info(self) -> dict:
-        return {
-            "rating": self._rating,
-            "wins": self._wins,
-            "losses": self._losses
-        }
-
-    def update_wins(self, wins: int) -> None:
-        if wins < 0:
-            raise ValueError("wins must be >= 0")
-        self._wins += wins
-
-    def update_losses(self, losses: int) -> None:
-        if losses < 0:
-            raise ValueError("losses must be >= 0")
-        self._losses += losses

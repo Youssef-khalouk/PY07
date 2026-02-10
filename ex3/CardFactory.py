@@ -3,6 +3,10 @@ from abc import ABC, abstractmethod
 
 
 class CardFactory(ABC):
+    """
+    Abstract factory defining methods to create cards and
+    themed decks for different card types.
+    """
     @abstractmethod
     def create_creature(self, name_or_power: str | int | None = None) -> Card:
         pass

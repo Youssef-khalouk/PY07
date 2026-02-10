@@ -1,10 +1,16 @@
+
 from ex0 import CreatureCard
-if __name__ == '__main__':
+
+
+def main() -> None:
+    """
+    Demonstrates the creation, playability,
+    and attack actions of a CreatureCard instance.
+    """
+    print("\n=== DataDeck Card Foundation ===")
+    print("\nTesting Abstract Base Class Design:\n")
+
     creature_card = CreatureCard("Fire Dragon", 5, "Legendary", 7, 5)
-    print("=== DataDeck Card Foundation ===")
-
-    print("\nTesting Abstract Base Class Design:")
-
     print("\nCreatureCard Info:")
     print(creature_card.get_card_info())
 
@@ -21,3 +27,7 @@ if __name__ == '__main__':
     print(f"Playable: {creature_card.is_playable(3)}")
 
     print("\nAbstract pattern successfully demonstrated!")
+
+
+if __name__ == '__main__':
+    main()
