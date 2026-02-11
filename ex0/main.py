@@ -1,5 +1,5 @@
 
-from ex0 import CreatureCard
+from ex0.CreatureCard import CreatureCard
 
 
 def main() -> None:
