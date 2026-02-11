@@ -8,10 +8,10 @@ class EliteCard(Card, Combatable, Magical):
     magical abilities that can be played, attack, and cast spells.
     """
     def __init__(self, name: str, cost: int, rarity: str):
-        Card.__init__(self, name, cost, rarity)
-        Combatable.__init__(self, name, 5, 10)
-        Magical.__init__(self, cost)
-
+        super().__init__(name, cost, rarity)
+        self.attack_power = 5
+        self.health = 10
+        self.mana = cost
         self.type = CardType["Elite_Card"]
         self.effect = "Elite card enters the battlefield"
 
@@ -36,4 +36,30 @@ class EliteCard(Card, Combatable, Magical):
             'spell': spell_name,
             'targets': targets,
             'mana_used': self.cost
+        }
+
+    def defend(self, incoming_damage: int) -> dict:
+        self.health -= int(incoming_damage * 0.4)
+        return {
+            'defender': self.name,
+            'damage_taken': int(incoming_damage * 0.4),
+            'damage_blocked': int(incoming_damage * 0.6),
+            'still_alive': True if self.health > 0 else False
+        }
+
+    def get_combat_stats(self) -> dict:
+        return {
+            'attack': self.attack_power,
+            'health': self.health
+        }
+
+    def channel_mana(self, amount: int) -> dict:
+        return {
+            'channeled': amount,
+            'total_mana': 7
+        }
+
+    def get_magic_stats(self) -> dict:
+        return {
+            'mana': self.mana
         }
